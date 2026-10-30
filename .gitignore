@@ -1,0 +1,17 @@
+
+# Idea
+.idea/
+__pycache__/
+
+# Models
+models/*
+!models/.gitkeep
+
+# Images
+dataset/test/*
+dataset/val/*
+dataset/train/*
+
+!dataset/test/.gitkeep
+!dataset/val/.gitkeep
+!dataset/train/.gitkeep
