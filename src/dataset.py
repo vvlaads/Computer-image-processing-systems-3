@@ -1,9 +1,20 @@
+import torch
+
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 
-from config import IMAGE_SIZE, TRAIN_DIR, VAL_DIR, BATCH_SIZE
+from config import SEED, IMAGE_SIZE, TRAIN_DIR, VAL_DIR, BATCH_SIZE
+
+# Применяем сид генерации
+generator = torch.Generator()
+generator.manual_seed(SEED)
 
 # Преобразования для изображений
+# transform = transforms.Compose([
+#     transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
+#     transforms.ToTensor()
+# ])
+
 train_transform = transforms.Compose([
     transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
     transforms.RandomHorizontalFlip(),
@@ -35,13 +46,14 @@ val_dataset = datasets.ImageFolder(
 train_loader = DataLoader(
     train_dataset,
     batch_size=BATCH_SIZE,
-    shuffle=True
+    shuffle=True,
+    generator=generator,
 )
 
 val_loader = DataLoader(
     val_dataset,
     batch_size=BATCH_SIZE,
-    shuffle=False
+    shuffle=False,
 )
 
 print("Классы:", train_dataset.classes)
